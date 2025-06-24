@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model File {
+  id            String   @id
+  original_name String
+  filename      String
+  size          BigInt
+  mimetype      String
+  access_token  String   @unique
+  download_count Int     @default(0)
+  expires_at    DateTime
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("files")
+}
+
+model Analytics {
+  id         Int      @id @default(autoincrement())
+  event_type String   // upload, download, error
+  file_id    String?
+  ip_address String?
+  user_agent String?
+  timestamp  DateTime @default(now())
+  metadata   String?  // JSON string for additional data
+
+  @@map("analytics")
+}
