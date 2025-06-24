@@ -3,19 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirShare - Chia sẻ file thực thời</title>
+    <title>AirShare Pro - Chia sẻ file thông minh</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Đang khởi tạo AirShare Pro...</h3>
+            <p>Vui lòng đợi trong giây lát</p>
+        </div>
+    </div>
+
+    <!-- User Setup Modal -->
+    <div id="userSetupModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chào mừng đến với AirShare Pro</h3>
+            </div>
+            <div class="modal-body">
+                <div class="user-setup">
+                    <div class="setup-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h4>Thiết lập tài khoản</h4>
+                    <p>Để bắt đầu chia sẻ file, vui lòng nhập tên của bạn:</p>
+                    <div class="input-group">
+                        <input type="text" id="userNameInput" placeholder="Nhập tên của bạn" maxlength="50">
+                        <button class="btn-primary" onclick="createUser()">
+                            <i class="fas fa-arrow-right"></i>
+                            Bắt đầu
+                        </button>
+                    </div>
+                    <div class="user-id-display" id="userIdDisplay" style="display: none;">
+                        <p>ID của bạn: <strong id="currentUserId"></strong></p>
+                        <small>Lưu ID này để sử dụng lại sau</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
                     <i class="fas fa-paper-plane"></i>
-                    <span>AirShare</span>
+                    <span>AirShare Pro</span>
+                </div>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="currentUserName">User</span>
+                        <span class="user-id-small" id="currentUserIdSmall"></span>
+                    </div>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="#home">Trang chủ</a></li>
@@ -35,18 +82,28 @@
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1>Chia sẻ file <span class="gradient-text">thực thời</span> trên cùng mạng WiFi</h1>
-                <p>Gửi file nhanh chóng cho thiết bị cùng mạng WiFi. Không cần internet, không giới hạn dung lượng.</p>
+                <h1>Chia sẻ file <span class="gradient-text">thông minh</span> với ID cá nhân</h1>
+                <p>Mỗi người dùng có ID riêng, chia sẻ file an toàn với QR code và theo dõi chi tiết.</p>
+                
                 <div class="network-info" id="networkInfo">
-                    <div class="network-status">
-                        <i class="fas fa-wifi"></i>
-                        <span id="networkName">Đang phát hiện mạng...</span>
-                    </div>
-                    <div class="device-count">
-                        <i class="fas fa-devices"></i>
-                        <span id="deviceCount">0 thiết bị online</span>
+                    <div class="network-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-wifi"></i>
+                            <div class="stat-details">
+                                <span class="stat-label">Trạng thái</span>
+                                <span class="stat-value" id="connectionStatus">Đã kết nối</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-details">
+                                <span class="stat-label">Người dùng</span>
+                                <span class="stat-value" id="onlineUsers">1</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="hero-buttons">
                     <button class="btn-primary" onclick="openUploadModal()">
                         <i class="fas fa-upload"></i>
@@ -76,7 +133,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Nhận file nhanh</h2>
-                <p>Nhập mã chia sẻ để tải file từ thiết bị khác</p>
+                <p>Nhập mã chia sẻ để truy cập file từ người dùng khác</p>
             </div>
             <div class="receive-form">
                 <div class="input-group">
@@ -95,36 +152,36 @@
         <div class="container">
             <div class="section-header">
                 <h2>Tính năng nổi bật</h2>
-                <p>Chia sẻ file thông minh với công nghệ hiện đại</p>
+                <p>Hệ thống chia sẻ file tiên tiến với quản lý người dùng</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-id-card"></i>
                     </div>
-                    <h3>Tự động phát hiện</h3>
-                    <p>Tự động tìm thiết bị cùng mạng WiFi và hiển thị trạng thái online</p>
+                    <h3>ID cá nhân</h3>
+                    <p>Mỗi người dùng có ID riêng biệt để đảm bảo tính riêng tư và bảo mật</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-list-ul"></i>
                     </div>
-                    <h3>Tốc độ cao</h3>
-                    <p>Truyền file trực tiếp qua mạng LAN với tốc độ tối đa</p>
+                    <h3>Danh sách file chi tiết</h3>
+                    <p>Hiển thị đầy đủ thông tin file: tên, kích thước, định dạng và icon</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>QR Code thông minh</h3>
+                    <p>Tạo QR code tự động để chia sẻ nhanh chóng và tiện lợi</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>An toàn</h3>
-                    <p>File được mã hóa và chỉ tồn tại tạm thời trên server</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Theo dõi tiến trình</h3>
-                    <p>Hiển thị real-time tiến trình upload/download với tốc độ truyền</p>
+                    <h3>Bảo mật cao</h3>
+                    <p>Phiên chia sẻ an toàn với xác thực người dùng và mã hóa</p>
                 </div>
             </div>
         </div>
@@ -157,14 +214,26 @@
                 <div class="upload-progress-section" id="uploadProgressSection" style="display: none;">
                     <div class="progress-header">
                         <h4>Đang tải lên...</h4>
-                        <span id="uploadSpeed">0 MB/s</span>
+                        <div class="speed-display">
+                            <span id="uploadSpeed">0 MB/s</span>
+                            <span id="uploadETA">ETA: --</span>
+                        </div>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="uploadProgressBar"></div>
+                        <div class="progress-text">
+                            <span id="uploadProgressText">0%</span>
+                        </div>
                     </div>
-                    <div class="progress-info">
-                        <span id="uploadProgressText">0%</span>
-                        <span id="uploadETA">Ước tính: --</span>
+                    <div class="upload-details">
+                        <div class="detail-item">
+                            <span>Đã tải:</span>
+                            <span id="uploadedSize">0 MB</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Tổng cộng:</span>
+                            <span id="totalSize">0 MB</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -173,15 +242,50 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <h4>File đã sẵn sàng chia sẻ!</h4>
-                    <div class="share-code-display">
-                        <div class="code-box">
-                            <span id="generatedShareCode">------</span>
-                            <button onclick="copyShareCode()" class="copy-btn" title="Sao chép mã">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                    
+                    <div class="share-options">
+                        <div class="share-method">
+                            <h5><i class="fas fa-key"></i> Mã chia sẻ</h5>
+                            <div class="code-box">
+                                <span id="generatedShareCode">------</span>
+                                <button onclick="copyShareCode()" class="copy-btn" title="Sao chép mã">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="share-method">
+                            <h5><i class="fas fa-qrcode"></i> QR Code</h5>
+                            <div class="qr-code-container">
+                                <img id="qrCodeImage" src="" alt="QR Code" style="display: none;">
+                                <button onclick="downloadQRCode()" class="btn-secondary" id="downloadQRBtn" style="display: none;">
+                                    <i class="fas fa-download"></i>
+                                    Tải QR Code
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="share-method">
+                            <h5><i class="fas fa-link"></i> Link chia sẻ</h5>
+                            <div class="link-box">
+                                <input type="text" id="shareLink" readonly>
+                                <button onclick="copyShareLink()" class="copy-btn" title="Sao chép link">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <p>Chia sẻ mã này với người nhận</p>
+                    
+                    <div class="session-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>Người tham gia: <strong id="participantCount">0</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-download"></i>
+                            <span>Lượt tải: <strong id="downloadCount">0</strong></span>
+                        </div>
+                    </div>
                     
                     <div class="connection-status" id="connectionStatus">
                         <i class="fas fa-clock"></i>
@@ -192,10 +296,13 @@
                         <h5>Tiến trình tải xuống:</h5>
                         <div class="progress-bar">
                             <div class="progress-fill" id="downloadProgressBar"></div>
+                            <div class="progress-text">
+                                <span id="downloadProgressText">0%</span>
+                            </div>
                         </div>
-                        <div class="progress-info">
-                            <span id="downloadProgressText">0%</span>
-                            <span id="downloadSpeed">0 MB/s</span>
+                        <div class="transfer-stats">
+                            <span id="downloadSpeedSender">0 MB/s</span>
+                            <span id="downloadFileName">--</span>
                         </div>
                     </div>
                 </div>
@@ -212,7 +319,7 @@
             </div>
             <div class="modal-body">
                 <div class="receive-input-section">
-                    <label>Mã chia sẻ:</label>
+                    <label>Mã chia sẻ từ người gửi:</label>
                     <div class="input-group">
                         <input type="text" id="receiveShareCode" placeholder="Nhập mã 6 chữ số" maxlength="6" class="share-code-input">
                         <button class="btn-primary" onclick="connectToSender()">
@@ -224,32 +331,41 @@
                 
                 <div class="connection-status" id="receiveConnectionStatus" style="display: none;">
                     <i class="fas fa-spinner fa-spin"></i>
-                    <span>Đang kết nối...</span>
+                    <span>Đang kết nối với phiên chia sẻ...</span>
                 </div>
                 
                 <div class="available-files" id="availableFiles" style="display: none;">
-                    <h4>File có sẵn:</h4>
-                    <div id="availableFilesList"></div>
-                    <button class="btn-primary btn-full" onclick="downloadAllFiles()">
-                        <i class="fas fa-download"></i>
-                        Tải tất cả file
-                    </button>
+                    <div class="files-header">
+                        <h4><i class="fas fa-folder-open"></i> File có sẵn:</h4>
+                        <div class="file-stats">
+                            <span id="fileCount">0 file</span>
+                            <span id="totalFileSize">0 MB</span>
+                        </div>
+                    </div>
+                    <div id="availableFilesList" class="detailed-file-list"></div>
+                    <div class="download-options">
+                        <button class="btn-primary" onclick="downloadAllFiles()">
+                            <i class="fas fa-download"></i>
+                            Tải từng file
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="receive-progress" id="receiveProgress" style="display: none;">
                     <div class="progress-header">
                         <h4>Đang tải xuống...</h4>
-                        <span id="receiveSpeed">0 MB/s</span>
+                        <div class="speed-display">
+                            <span id="receiveSpeed">0 MB/s</span>
+                        </div>
                     </div>
                     <div class="current-file" id="currentDownloadFile">
                         <span>Đang tải: --</span>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="receiveProgressBar"></div>
-                    </div>
-                    <div class="progress-info">
-                        <span id="receiveProgressText">0%</span>
-                        <span id="receiveETA">Ước tính: --</span>
+                        <div class="progress-text">
+                            <span id="receiveProgressText">0%</span>
+                        </div>
                     </div>
                 </div>
                 
