@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirShare - Chia sẻ file nhanh chóng</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>AirShare</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#features">Tính năng</a></li>
+                    <li><a href="#about">Giới thiệu</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Chia sẻ file <span class="gradient-text">nhanh chóng</span> và <span class="gradient-text">an toàn</span></h1>
+                <p>Gửi file của bạn một cách tức thì với công nghệ peer-to-peer. Không cần đăng ký, không giới hạn dung lượng.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="openUploadModal()">
+                        <i class="fas fa-upload"></i>
+                        Gửi file ngay
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-play"></i>
+                        Xem demo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Kéo thả file vào đây</p>
+                        <span>hoặc click để chọn</span>
+                        <input type="file" id="fileInput" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg">
+            <div class="floating-icon" style="top: 20%; left: 10%;">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="floating-icon" style="top: 30%; right: 15%;">
+                <i class="fas fa-file-image"></i>
+            </div>
+            <div class="floating-icon" style="bottom: 30%; left: 20%;">
+                <i class="fas fa-file-video"></i>
+            </div>
+            <div class="floating-icon" style="bottom: 20%; right: 10%;">
+                <i class="fas fa-file-audio"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tại sao chọn AirShare?</h2>
+                <p>Những tính năng vượt trội giúp việc chia sẻ file trở nên dễ dàng hơn bao giờ hết</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Tốc độ ánh sáng</h3>
+                    <p>Chuyển file trực tiếp peer-to-peer với tốc độ tối đa, không qua server trung gian</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Bảo mật tuyệt đối</h3>
+                    <p>Mã hóa end-to-end, file được truyền trực tiếp không lưu trên server</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Không giới hạn</h3>
+                    <p>Gửi file bất kỳ kích thước nào, không cần đăng ký hay đăng nhập</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Đa nền tảng</h3>
+                    <p>Hoạt động trên mọi thiết bị: máy tính, điện thoại, tablet</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Chia sẻ dễ dàng</h3>
+                    <p>Tạo link chia sẻ nhanh chóng, người nhận chỉ cần click để tải</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Thời gian thực</h3>
+                    <p>Theo dõi tiến trình chuyển file và trạng thái kết nối real-time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cách thức hoạt động</h2>
+                <p>Chỉ với 3 bước đơn giản</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Chọn file</h3>
+                        <p>Kéo thả hoặc chọn file từ thiết bị của bạn</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Tạo link</h3>
+                        <p>Hệ thống tự động tạo link chia sẻ an toàn</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Chia sẻ</h3>
+                        <p>Gửi link cho người nhận và họ có thể tải ngay</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="1000000">0</div>
+                    <div class="stat-label">File đã chia sẻ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50000">0</div>
+                    <div class="stat-label">Người dùng hài lòng</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">% Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Giờ hỗ trợ/ngày</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Sẵn sàng chia sẻ file?</h2>
+                <p>Bắt đầu ngay hôm nay - hoàn toàn miễn phí</p>
+                <button class="btn-primary" onclick="openUploadModal()">
+                    <i class="fas fa-rocket"></i>
+                    Bắt đầu ngay
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>AirShare</span>
+                    </div>
+                    <p>Giải pháp chia sẻ file hàng đầu với công nghệ peer-to-peer</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Sản phẩm</h4>
+                    <ul>
+                        <li><a href="#">Chia sẻ file</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Tích hợp</a></li>
+                        <li><a href="#">Bảo mật</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="#">Trung tâm trợ giúp</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="#">Báo lỗi</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Công ty</h4>
+                    <ul>
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">Đối tác</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AirShare. Tất cả quyền được bảo lưu.</p>
+                <div class="footer-links">
+                    <a href="#">Điều khoản</a>
+                    <a href="#">Bảo mật</a>
+                    <a href="#">Cookie</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chia sẻ file</h3>
+                <span class="close" onclick="closeUploadModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="upload-zone" id="uploadZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h4>Kéo thả file vào đây</h4>
+                    <p>hoặc <span class="browse-link">chọn file từ máy tính</span></p>
+                    <input type="file" id="modalFileInput" multiple>
+                </div>
+                <div class="file-list" id="fileList"></div>
+                <div class="upload-options">
+                    <div class="option">
+                        <input type="checkbox" id="passwordProtect">
+                        <label for="passwordProtect">Bảo vệ bằng mật khẩu</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="autoDelete">
+                        <label for="autoDelete">Tự động xóa sau 24h</label>
+                    </div>
+                </div>
+                <button class="btn-primary btn-full" id="uploadBtn" disabled>
+                    <i class="fas fa-share"></i>
+                    Tạo link chia sẻ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
