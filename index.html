@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelShare - Chia sẻ file nhanh</title>
+    <style>
+        @font-face {
+            font-family: 'Pixel';
+            src: url('data:font/truetype;charset=utf-8;base64,') format('truetype');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: 
+                radial-gradient(circle at 1px 1px, #00ff00 1px, transparent 0);
+            background-size: 20px 20px;
+            animation: matrix 20s linear infinite;
+        }
+        
+        @keyframes matrix {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 20px; }
+        }
+        
+        .container {
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #00ff00;
+            border-radius: 0;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 0 20px #00ff00,
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #00ff00, #ff00ff, #00ffff, #ffff00);
+            z-index: -1;
+            border-radius: 0;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .upload-area {
+            border: 2px dashed #00ff00;
+            padding: 40px 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0, 255, 0, 0.05);
+        }
+        
+        .upload-area:hover {
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+        
+        .upload-area.dragover {
+            background: rgba(0, 255, 0, 0.2);
+            transform: scale(1.02);
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .btn {
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+            transform: translateY(-2px);
+        }
+        
+        .progress {
+            width: 100%;
+            height: 20px;
+            background: #333;
+            border: 1px solid #00ff00;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #ffff00);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .file-info {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            display: none;
+        }
+        
+        .share-code {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffff00;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid #ffff00;
+            word-break: break-all;
+        }
+        
+        .download-area {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 1px solid #00ff00;
+        }
+        
+        input[type="text"] {
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            font-family: inherit;
+            width: 200px;
+            margin: 10px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .error {
+            color: #ff0066;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ff0066;
+            background: rgba(255, 0, 102, 0.1);
+        }
+        
+        .success {
+            color: #00ffff;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .upload-area {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 PIXELSHARE 🎮</h1>
+        
+        <!-- Upload Section -->
+        <div class="upload-area" id="uploadArea">
+            <div>📁 Kéo thả file vào đây</div>
+            <div>hoặc</div>
+            <button class="btn" onclick="document.getElementById('fileInput').click()">
+                Chọn File
+            </button>
+            <input type="file" id="fileInput" multiple>
+        </div>
+        
+        <div class="progress" id="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="file-info" id="fileInfo">
+            <div id="fileName"></div>
+            <div id="fileSize"></div>
+            <div class="share-code" id="shareCode"></div>
+            <button class="btn" onclick="copyCode()">📋 Copy Code</button>
+        </div>
+        
+        <!-- Download Section -->
+        <div class="download-area">
+            <h3>💾 Tải File</h3>
+            <input type="text" id="downloadCode" placeholder="Nhập code...">
+            <button class="btn" onclick="downloadFile()">⬇️ Tải về</button>
+        </div>
+        
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // WebRTC và WebSocket cho P2P transfer
+        let fileData = new Map();
+        let connections = new Map();
+        
+        // Simple WebSocket server simulation (thực tế cần server)
+        const ws = {
+            send: (data) => {
+                // Simulate server broadcast
+                setTimeout(() => {
+                    handleMessage(data);
+                }, 100);
+            }
+        };
+        
+        function handleMessage(data) {
+            const message = JSON.parse(data);
+            if (message.type === 'file-request' && fileData.has(message.code)) {
+                // Gửi file data
+                const file = fileData.get(message.code);
+                showMessage('File đang được tải...', 'success');
+            }
+        }
+        
+        // Upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const progress = document.getElementById('progress');
+        const progressBar = document.getElementById('progressBar');
+        const fileInfo = document.getElementById('fileInfo');
+        
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+        
+        function handleFile(file) {
+            // Kiểm tra kích thước file (giới hạn 100MB)
+            if (file.size > 100 * 1024 * 1024) {
+                showMessage('File quá lớn! Giới hạn 100MB', 'error');
+                return;
+            }
+            
+            // Hiển thị progress
+            progress.style.display = 'block';
+            
+            // Simulate upload progress
+            let progressValue = 0;
+            const interval = setInterval(() => {
+                progressValue += Math.random() * 15;
+                if (progressValue >= 100) {
+                    progressValue = 100;
+                    clearInterval(interval);
+                    completeUpload(file);
+                }
+                progressBar.style.width = progressValue + '%';
+            }, 100);
+        }
+        
+        function completeUpload(file) {
+            // Tạo code chia sẻ
+            const code = generateShareCode();
+            
+            // Lưu file data (thực tế sẽ lưu vào server hoặc P2P)
+            fileData.set(code, {
+                name: file.name,
+                size: file.size,
+                data: file,
+                timestamp: Date.now()
+            });
+            
+            // Hiển thị thông tin file
+            document.getElementById('fileName').textContent = `📄 ${file.name}`;
+            document.getElementById('fileSize').textContent = `📏 ${formatFileSize(file.size)}`;
+            document.getElementById('shareCode').textContent = code;
+            
+            fileInfo.style.display = 'block';
+            progress.style.display = 'none';
+            
+            showMessage('✅ Upload thành công!', 'success');
+            
+            // Auto-expire sau 24h
+            setTimeout(() => {
+                fileData.delete(code);
+            }, 24 * 60 * 60 * 1000);
+        }
+        
+        function generateShareCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('shareCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showMessage('📋 Code đã được copy!', 'success');
+            });
+        }
+        
+        function downloadFile() {
+            const code = document.getElementById('downloadCode').value.toUpperCase();
+            if (!code) {
+                showMessage('❌ Vui lòng nhập code!', 'error');
+                return;
+            }
+            
+            if (fileData.has(code)) {
+                const file = fileData.get(code);
+                
+                // Tạo download link
+                const blob = new Blob([file.data]);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showMessage('⬇️ Đang tải file...', 'success');
+            } else {
+                showMessage('❌ Code không tồn tại hoặc đã hết hạn!', 'error');
+            }
+        }
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = type;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Cleanup expired files
+        setInterval(() => {
+            const now = Date.now();
+            for (let [code, file] of fileData) {
+                if (now - file.timestamp > 24 * 60 * 60 * 1000) {
+                    fileData.delete(code);
+                }
+            }
+        }, 60 * 60 * 1000); // Check every hour
+    </script>
+</body>
+</html>
