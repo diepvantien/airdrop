@@ -20,8 +20,8 @@
                 <ul class="nav-menu">
                     <li><a href="#home">Trang chủ</a></li>
                     <li><a href="#features">Tính năng</a></li>
+                    <li><a href="#receive">Nhận file</a></li>
                     <li><a href="#about">Giới thiệu</a></li>
-                    <li><a href="#contact">Liên hệ</a></li>
                 </ul>
                 <div class="nav-toggle">
                     <span></span>
@@ -43,9 +43,9 @@
                         <i class="fas fa-upload"></i>
                         Gửi file ngay
                     </button>
-                    <button class="btn-secondary">
-                        <i class="fas fa-play"></i>
-                        Xem demo
+                    <button class="btn-secondary" onclick="openReceiveModal()">
+                        <i class="fas fa-download"></i>
+                        Nhận file
                     </button>
                 </div>
             </div>
@@ -130,138 +130,24 @@
         </div>
     </section>
 
-    <!-- How it works -->
-    <section class="how-it-works">
+    <!-- Receive Section -->
+    <section id="receive" class="receive-section">
         <div class="container">
             <div class="section-header">
-                <h2>Cách thức hoạt động</h2>
-                <p>Chỉ với 3 bước đơn giản</p>
+                <h2>Nhận file từ link</h2>
+                <p>Nhập mã chia sẻ để tải file</p>
             </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Chọn file</h3>
-                        <p>Kéo thả hoặc chọn file từ thiết bị của bạn</p>
-                    </div>
-                </div>
-                <div class="step-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Tạo link</h3>
-                        <p>Hệ thống tự động tạo link chia sẻ an toàn</p>
-                    </div>
-                </div>
-                <div class="step-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Chia sẻ</h3>
-                        <p>Gửi link cho người nhận và họ có thể tải ngay</p>
-                    </div>
+            <div class="receive-form">
+                <div class="input-group">
+                    <input type="text" id="shareCode" placeholder="Nhập mã chia sẻ (6 chữ số)" maxlength="6">
+                    <button class="btn-primary" onclick="connectToSender()">
+                        <i class="fas fa-link"></i>
+                        Kết nối
+                    </button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" data-target="1000000">0</div>
-                    <div class="stat-label">File đã chia sẻ</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="50000">0</div>
-                    <div class="stat-label">Người dùng hài lòng</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="99">0</div>
-                    <div class="stat-label">% Uptime</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="24">0</div>
-                    <div class="stat-label">Giờ hỗ trợ/ngày</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Sẵn sàng chia sẻ file?</h2>
-                <p>Bắt đầu ngay hôm nay - hoàn toàn miễn phí</p>
-                <button class="btn-primary" onclick="openUploadModal()">
-                    <i class="fas fa-rocket"></i>
-                    Bắt đầu ngay
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>AirShare</span>
-                    </div>
-                    <p>Giải pháp chia sẻ file hàng đầu với công nghệ peer-to-peer</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Sản phẩm</h4>
-                    <ul>
-                        <li><a href="#">Chia sẻ file</a></li>
-                        <li><a href="#">API</a></li>
-                        <li><a href="#">Tích hợp</a></li>
-                        <li><a href="#">Bảo mật</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Hỗ trợ</h4>
-                    <ul>
-                        <li><a href="#">Trung tâm trợ giúp</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                        <li><a href="#">Báo lỗi</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Công ty</h4>
-                    <ul>
-                        <li><a href="#">Về chúng tôi</a></li>
-                        <li><a href="#">Tuyển dụng</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Đối tác</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AirShare. Tất cả quyền được bảo lưu.</p>
-                <div class="footer-links">
-                    <a href="#">Điều khoản</a>
-                    <a href="#">Bảo mật</a>
-                    <a href="#">Cookie</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- Upload Modal -->
     <div id="uploadModal" class="modal">
@@ -278,24 +164,122 @@
                     <input type="file" id="modalFileInput" multiple>
                 </div>
                 <div class="file-list" id="fileList"></div>
-                <div class="upload-options">
-                    <div class="option">
-                        <input type="checkbox" id="passwordProtect">
-                        <label for="passwordProtect">Bảo vệ bằng mật khẩu</label>
+                <div class="share-options" id="shareOptions" style="display: none;">
+                    <div class="share-code-display">
+                        <h4>Mã chia sẻ của bạn:</h4>
+                        <div class="code-box">
+                            <span id="generatedCode">------</span>
+                            <button onclick="copyShareCode()" class="copy-btn">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <p>Chia sẻ mã này với người nhận</p>
                     </div>
-                    <div class="option">
-                        <input type="checkbox" id="autoDelete">
-                        <label for="autoDelete">Tự động xóa sau 24h</label>
+                    <div class="connection-status" id="connectionStatus">
+                        <i class="fas fa-wifi"></i>
+                        <span>Đang chờ kết nối...</span>
+                    </div>
+                    <div class="transfer-progress" id="transferProgress" style="display: none;">
+                        <div class="progress-info">
+                            <span id="progressText">Đang gửi...</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="transfer-speed">
+                            <span id="transferSpeed">0 KB/s</span>
+                        </div>
                     </div>
                 </div>
-                <button class="btn-primary btn-full" id="uploadBtn" disabled>
+                <button class="btn-primary btn-full" id="createShareBtn" onclick="createShare()" disabled>
                     <i class="fas fa-share"></i>
-                    Tạo link chia sẻ
+                    Tạo mã chia sẻ
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Receive Modal -->
+    <div id="receiveModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nhận file</h3>
+                <span class="close" onclick="closeReceiveModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="receive-input">
+                    <label>Mã chia sẻ:</label>
+                    <div class="input-group">
+                        <input type="text" id="receiveCode" placeholder="Nhập mã 6 chữ số" maxlength="6">
+                        <button class="btn-primary" onclick="connectToSender()">
+                            <i class="fas fa-link"></i>
+                            Kết nối
+                        </button>
+                    </div>
+                </div>
+                <div class="receive-status" id="receiveStatus" style="display: none;">
+                    <div class="status-icon">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <p>Đang kết nối với người gửi...</p>
+                </div>
+                <div class="incoming-files" id="incomingFiles" style="display: none;">
+                    <h4>File sẽ nhận:</h4>
+                    <div id="incomingFilesList"></div>
+                    <button class="btn-primary btn-full" onclick="acceptFiles()">
+                        <i class="fas fa-download"></i>
+                        Chấp nhận và tải xuống
+                    </button>
+                </div>
+                <div class="download-progress" id="downloadProgress" style="display: none;">
+                    <div class="progress-info">
+                        <span id="downloadProgressText">Đang tải...</span>
+                        <span id="downloadProgressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="downloadProgressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>AirShare</span>
+                    </div>
+                    <p>Giải pháp chia sẻ file hàng đầu với công nghệ peer-to-peer</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Hướng dẫn</h4>
+                    <ul>
+                        <li><a href="#">Cách gửi file</a></li>
+                        <li><a href="#">Cách nhận file</a></li>
+                        <li><a href="#">Khắc phục sự cố</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="#">Trung tâm trợ giúp</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AirShare. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="file-transfer.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
